@@ -1,5 +1,8 @@
 package es.deusto.ingenieria.is.search.formulation;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Abstract class defining a problem's operator. Operator represents the way
  * problem states are created, since the result of applying an operator on a
@@ -9,8 +12,9 @@ package es.deusto.ingenieria.is.search.formulation;
  * problem to inherit from it and redefine the methods <i>isAplicable()</i> y
  * <i>effect()</i>.
  */
-public abstract class Operator {
+public class Operator {
 
+	private int numDiscos;
 	/**
 	 * Operator's name.
 	 */
@@ -24,8 +28,9 @@ public abstract class Operator {
 	/**
 	 * Constructor method. Instantiates an operator with no name and cost zero.
 	 */
-	public Operator() {
-		this.name = "";
+	public Operator(int numDiscos) {
+		this.name = "mover";
+		this.numDiscos = numDiscos;
 	}
 
 	/**
@@ -111,7 +116,7 @@ public abstract class Operator {
 	public final State apply(State state) {
 		State successor = null;
 
-		if (state != null && this.isApplicable(state)) {
+		if (state != null && this.isApplicable(state, successor)) {
 			successor = this.effect(state);
 		}
 
@@ -133,7 +138,28 @@ public abstract class Operator {
 	 *         invocation by classes other than operator subclasses or classes
 	 *         outside this package <i>es.deusto.ingenieria.aike.formulation</i>.
 	 */
-	protected abstract boolean isApplicable(State state);
+	protected boolean isApplicable(State stateOrigen, State stateDestino) {
+		boolean aplicable = false;
+		if(stateOrigen.getPrimero()==0)
+		{
+			aplicable = false; 
+		}
+		else
+		{
+			if(stateDestino.getPrimero()==0)
+			{
+				aplicable = true;
+			}
+			else
+			{
+				if(stateOrigen.getPrimero()<stateOrigen.getPrimero())
+				{
+					aplicable = true;
+				}
+			}
+		}
+		return aplicable;
+	}
 
 	/**
 	 * This method corresponds to the operator's <b>Transition Model</b>. That
@@ -149,7 +175,13 @@ public abstract class Operator {
 	 *         invocation by classes other than operator subclasses or classes
 	 *         outside this package <i>es.deusto.ingenieria.aike.formulation</i>.
 	 */
-	protected abstract State effect(State state);
+	protected List<State> effect(State stateOrigen, State stateDestino) {
+		List<State> listEffect = new ArrayList<State>();
+		int aux;
+		stateOrigen.getLista().add(stateOrigen.getPrimero(),0);
+		stateDestino.getLista().add(stateOrigen.getPrimero(),0);
+		return null;
+	}
 
 	/**
 	 * Returns a text string containing the operator's name and cost.

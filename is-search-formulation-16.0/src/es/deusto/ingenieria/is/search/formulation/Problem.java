@@ -12,11 +12,14 @@ import java.util.ArrayList;
  */
 public class Problem {
 
+	private Operator operator;
 	private int numSoportes;
 	private int numDiscos;
 	private int soporteInicial;
 	private int soporteFinal;
 	private State estadoFinal;
+	
+	private List<State> actualStates;
 	
 	/**
 	 * List containing the problem's initial states.
@@ -43,6 +46,7 @@ public class Problem {
 		this.soporteInicial = soporteInicial;
 		this.soporteFinal = soporteFinal;
 		
+		operator = new Operator(numDiscos);
 		this.initialStates = new ArrayList<State>();
 		this.finalStates = new ArrayList<State>();
 		this.operators = new ArrayList<Operator>();
@@ -63,6 +67,13 @@ public class Problem {
 			initialStates.add(new State(numDiscos,false));
 		}
 		initialStates.add(soporteInicial,new State(numDiscos,true));
+		
+		for(int i=0; i<numSoportes;i++)
+		{
+			actualStates.add(new State(numDiscos,true));
+		}
+		actualStates.add(soporteInicial,new State(numDiscos,true));
+		
 	}
 
 	/**

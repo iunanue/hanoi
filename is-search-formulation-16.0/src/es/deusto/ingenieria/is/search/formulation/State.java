@@ -92,4 +92,21 @@ private ArrayList<Integer> listComparar = new ArrayList<Integer>();
 		}
 		return igual;
 	}
+	public int getPrimero()
+	{
+		int primero=0;
+		
+		for(int i=numDiscos; numDiscos>0; i--)
+		{
+			if(list.get(i)!=0)
+			{
+				primero = list.get(i);
+			}
+		}
+		return primero;
+	}
+	public ArrayList<Integer> getLista()
+	{
+		return list;
+	}
 }
