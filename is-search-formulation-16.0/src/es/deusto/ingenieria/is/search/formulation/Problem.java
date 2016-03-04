@@ -10,8 +10,13 @@ import java.util.ArrayList;
  * <li>List of final states.</li>
  * <li>List of operators.</li>
  */
-public abstract class Problem {
+public class Problem {
 
+	private int numSoportes;
+	private int numDiscos;
+	private int soporteInicial;
+	private int soporteFinal;
+	
 	/**
 	 * List containing the problem's initial states.
 	 */
@@ -31,7 +36,12 @@ public abstract class Problem {
 	 * Constructor method. Instantiates a problem making empty lists for the initial states,
 	 * final states and operators.
 	 */
-	public Problem() {
+	public Problem(int numSoportes, int numDiscos, int soporteInicial, int soporteFinal) {
+		this.numSoportes = numSoportes;
+		this.numDiscos = numDiscos;
+		this.soporteInicial = soporteInicial;
+		this.soporteFinal = soporteFinal;
+		
 		this.initialStates = new ArrayList<State>();
 		this.finalStates = new ArrayList<State>();
 		this.operators = new ArrayList<Operator>();
@@ -141,7 +151,9 @@ public abstract class Problem {
 	 * @return State
 	 *            that represents the initial state of the environment.
 	 */
-	public abstract State gatherInitialPercepts();
+	public State gatherInitialPercepts() {
+		return null;
+	}
 	
 	/**
 	 * Gathers percepts that were missing from the current environment state. 

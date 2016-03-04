@@ -1,10 +1,28 @@
 package es.deusto.ingenieria.is.search.formulation;
 
+import java.util.ArrayList;
+
 /**
  * Class defining problem state. It represents a given problem stage or situation.
  */
-public abstract class State {
+public class State {
 
+	
+private ArrayList<Integer> list;
+	
+	public State(int numSoportes, int numDiscos, int soporteInicial, int soporteFinal)
+	{
+		list = new ArrayList<Integer>();
+		for(int i=0; i<numSoportes; i++)
+		{
+			list.add(0);
+		}
+		for(int i=numDiscos; numDiscos>=0; i--)
+		{
+			list.add(soporteInicial,numDiscos);
+		}
+		
+	}
 	/**
 	 * Returns a string representation of the object. In general, the toString
 	 * method returns a string that "textually represents" this object.
@@ -23,7 +41,9 @@ public abstract class State {
 	 * 
 	 * @return a string representation of the object.
 	 */
-	public abstract String toString();
+	public String toString() {
+		return null;
+	}
 
 	/**
 	 * Indicates whether some other object is "equal to" this one.
@@ -40,5 +60,7 @@ public abstract class State {
 	 *         <li><b>true</b> - if this object is the same as the obj argument.</li>
 	 *         <li><b>false</b> - otherwise.</li>
 	 */
-	public abstract boolean equals(Object obj);
+	public boolean equals(Object obj) {
+		return false;
+	}
 }
