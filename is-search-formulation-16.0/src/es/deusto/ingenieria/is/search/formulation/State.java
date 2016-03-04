@@ -2,25 +2,42 @@ package es.deusto.ingenieria.is.search.formulation;
 
 import java.util.ArrayList;
 
+import javax.print.attribute.standard.NumberOfDocuments;
+
+import com.sun.org.glassfish.external.statistics.StringStatistic;
+
 /**
  * Class defining problem state. It represents a given problem stage or situation.
  */
 public class State {
 
+	private int numDiscos;
+	private boolean esInicialFinal;
 	
 private ArrayList<Integer> list;
+private ArrayList<Integer> listComparar = new ArrayList<Integer>();
 	
-	public State(int numSoportes, int numDiscos, int soporteInicial, int soporteFinal)
+	public State(int numDiscos, boolean esInicialFinal)
 	{
+		this.numDiscos = numDiscos;
+		this.esInicialFinal = esInicialFinal;
 		list = new ArrayList<Integer>();
-		for(int i=0; i<numSoportes; i++)
+		
+		if(esInicialFinal == true)
 		{
-			list.add(0);
+			for(int i=numDiscos; numDiscos>0; i--)
+			{
+				list.add(numDiscos);
+			}
 		}
-		for(int i=numDiscos; numDiscos>=0; i--)
+		else
 		{
-			list.add(soporteInicial,numDiscos);
+			for(int i=numDiscos; numDiscos>0; i--)
+			{
+				list.add(0);
+			}
 		}
+		
 		
 	}
 	/**
@@ -42,7 +59,13 @@ private ArrayList<Integer> list;
 	 * @return a string representation of the object.
 	 */
 	public String toString() {
-		return null;
+		String stringSoporte = null;
+		for(int i=0;i<numDiscos;i++)
+		{
+			stringSoporte = stringSoporte +"[" + list.get(i)+"]\n";
+		}
+		return stringSoporte;
+		
 	}
 
 	/**
@@ -60,7 +83,13 @@ private ArrayList<Integer> list;
 	 *         <li><b>true</b> - if this object is the same as the obj argument.</li>
 	 *         <li><b>false</b> - otherwise.</li>
 	 */
-	public boolean equals(Object obj) {
-		return false;
+	public boolean equals(State state) {
+		boolean igual = true;
+		for(int i=0;i<numDiscos;i++){
+			if(list.get(i) != state.list.get(i)){
+				igual = false;
+			}
+		}
+		return igual;
 	}
 }

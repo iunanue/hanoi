@@ -16,6 +16,7 @@ public class Problem {
 	private int numDiscos;
 	private int soporteInicial;
 	private int soporteFinal;
+	private State estadoFinal;
 	
 	/**
 	 * List containing the problem's initial states.
@@ -54,9 +55,14 @@ public class Problem {
 	 *            State that is one of the problem's initial states.
 	 */
 	public void addInitialState(State initialState) {
-		if (initialState != null && !this.initialStates.contains(initialState)) {
-			this.initialStates.add(initialState);
+//		if (initialState != null && !this.initialStates.contains(initialState)) {
+//			this.initialStates.add(initialState);
+//		}
+		for(int i=0; i<numSoportes;i++)
+		{
+			initialStates.add(new State(numDiscos,false));
 		}
+		initialStates.add(soporteInicial,new State(numDiscos,true));
 	}
 
 	/**
@@ -75,9 +81,17 @@ public class Problem {
 	 *            State that is one of the problem's final states.
 	 */
 	public void addFinalState(State finalState) {
-		if (finalState != null && !this.finalStates.contains(finalState)) {
-			this.finalStates.add(finalState);
+//		if (finalState != null && !this.finalStates.contains(finalState)) {
+//			this.finalStates.add(finalState);
+//		}
+		for(int i=0; i<numSoportes;i++)
+		{
+			initialStates.add(new State(numDiscos,false));
 		}
+		estadoFinal = new State(numDiscos,true);
+		finalStates.add(soporteFinal,estadoFinal);
+		
+//		finalStates.equals(initialStates);
 	}
 
 	/**
@@ -123,11 +137,13 @@ public class Problem {
 	 *         <li>false - if state is not found in the list of final states.</li>
 	 */
 	public boolean isFinalState(State state) {
-		if (state != null) {
-			return this.finalStates.contains(state);
-		} else {
-			return false;
-		}
+//		if (state != null) {
+//			return this.finalStates.contains(state);
+//		} else {
+//			return false;
+//		}
+		return state.equals(estadoFinal);
+		
 	}
 	
 	/**
