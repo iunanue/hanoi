@@ -1,6 +1,7 @@
 package es.deusto.ingenieria.is.search.formulation;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.print.attribute.standard.NumberOfDocuments;
 
@@ -14,8 +15,8 @@ public class State {
 	private int numDiscos;
 	private boolean esInicialFinal;
 	
-private ArrayList<Integer> list;
-private ArrayList<Integer> listComparar = new ArrayList<Integer>();
+private List<Integer> list;
+private List<Integer> listComparar = new ArrayList<Integer>();
 	
 	public State(int numDiscos, boolean esInicialFinal)
 	{
@@ -23,16 +24,24 @@ private ArrayList<Integer> listComparar = new ArrayList<Integer>();
 		this.esInicialFinal = esInicialFinal;
 		list = new ArrayList<Integer>();
 		
+		for(int i=0; i<numDiscos;i++)
+		{
+			list.add(0);
+		}
+		
+		
 		if(esInicialFinal == true)
 		{
-			for(int i=numDiscos; numDiscos>0; i--)
+			int aux = numDiscos;
+			for(int i=0; i<numDiscos; i++)
 			{
-				list.add(numDiscos);
+				list.add(i,aux);
+				aux--;
 			}
 		}
 		else
 		{
-			for(int i=numDiscos; numDiscos>0; i--)
+			for(int i=0; i<numDiscos; i++)
 			{
 				list.add(0);
 			}
@@ -60,7 +69,11 @@ private ArrayList<Integer> listComparar = new ArrayList<Integer>();
 	 */
 	public String toString() {
 		String stringSoporte = null;
-		for(int i=0;i<numDiscos;i++)
+//		for(int i=0;i<numDiscos;i++)
+//		{
+//			stringSoporte = stringSoporte +"[" + list.get(i)+"]\n";
+//		}
+		for(int i=numDiscos-1;i>=0;i--)
 		{
 			stringSoporte = stringSoporte +"[" + list.get(i)+"]\n";
 		}
@@ -92,20 +105,34 @@ private ArrayList<Integer> listComparar = new ArrayList<Integer>();
 		}
 		return igual;
 	}
-	public int getPrimero()
+	public int getDiscoTop()
 	{
-		int primero=0;
+		int discoTop = 0;
 		
-		for(int i=numDiscos; numDiscos>0; i--)
+		if(getTop() == 0)
+		{
+			discoTop = 0;
+		}
+		else
+		{
+			discoTop = list.get(getTop());
+		}
+		
+		return discoTop;
+	}
+	public int getTop()
+	{
+		int top = 0;
+		for(int i=0;i<numDiscos;i++)
 		{
 			if(list.get(i)!=0)
 			{
-				primero = list.get(i);
+				top = i;
 			}
 		}
-		return primero;
+		return top;
 	}
-	public ArrayList<Integer> getLista()
+	public List<Integer> getLista()
 	{
 		return list;
 	}

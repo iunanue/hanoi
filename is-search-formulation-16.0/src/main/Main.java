@@ -76,6 +76,7 @@ public class Main {
 	public static void initProblem()
 	{
 		problem = new Problem(numSoportes,numDiscos,soporteInicial,soporteFinal);
+		
 	}
 
 }

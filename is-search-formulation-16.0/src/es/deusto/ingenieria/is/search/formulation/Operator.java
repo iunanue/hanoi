@@ -117,7 +117,7 @@ public class Operator {
 		State successor = null;
 
 		if (state != null && this.isApplicable(state, successor)) {
-			successor = this.effect(state);
+//			successor = this.effect(state,);
 		}
 
 		return successor;
@@ -140,19 +140,20 @@ public class Operator {
 	 */
 	protected boolean isApplicable(State stateOrigen, State stateDestino) {
 		boolean aplicable = false;
-		if(stateOrigen.getPrimero()==0)
+
+		if(stateOrigen.getDiscoTop()==0)
 		{
 			aplicable = false; 
 		}
 		else
 		{
-			if(stateDestino.getPrimero()==0)
+			if(stateDestino.getDiscoTop()==0)
 			{
 				aplicable = true;
 			}
 			else
 			{
-				if(stateOrigen.getPrimero()<stateOrigen.getPrimero())
+				if(stateOrigen.getDiscoTop()<stateOrigen.getDiscoTop())
 				{
 					aplicable = true;
 				}
@@ -177,10 +178,27 @@ public class Operator {
 	 */
 	protected List<State> effect(State stateOrigen, State stateDestino) {
 		List<State> listEffect = new ArrayList<State>();
-		int aux;
-		stateOrigen.getLista().add(stateOrigen.getPrimero(),0);
-		stateDestino.getLista().add(stateOrigen.getPrimero(),0);
-		return null;
+		
+		int disco = stateOrigen.getDiscoTop();
+//		System.out.println(disco);
+//		System.out.println(stateOrigen.getTop());
+//		System.out.println(stateDestino.getTop());
+		
+		stateOrigen.getLista().add(stateOrigen.getTop(),0);
+		
+		if(stateDestino.getTop() == 0)
+		{
+			stateDestino.getLista().add(0,disco);
+		}
+		else
+		{	
+			stateDestino.getLista().add(stateDestino.getTop()+1,disco);
+		}
+		
+		listEffect.add(stateOrigen);
+		listEffect.add(stateDestino);
+		
+		return listEffect;
 	}
 
 	/**

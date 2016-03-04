@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 public class Problem {
 
-	private Operator operator;
+	private Operator mover;
 	private int numSoportes;
 	private int numDiscos;
 	private int soporteInicial;
@@ -45,34 +45,73 @@ public class Problem {
 		this.numDiscos = numDiscos;
 		this.soporteInicial = soporteInicial;
 		this.soporteFinal = soporteFinal;
+		mover = new Operator(numDiscos);
 		
-		operator = new Operator(numDiscos);
 		this.initialStates = new ArrayList<State>();
 		this.finalStates = new ArrayList<State>();
+		actualStates = new ArrayList<State>();
 		this.operators = new ArrayList<Operator>();
+		
+		addInitialState();
+		addFinalState();
+		runTest();
+		
 	}
 	
+	private void runTest() {
+		System.out.println("\n- Prueba 'isApplicable' movimiento NO VÁLIDO:\n");
+		System.out.println(mover.isApplicable(actualStates.get(soporteInicial), actualStates.get(soporteInicial)));
+		
+		System.out.println("\n- Prueba 'isApplicable' movimiento VÁLIDO:\n");
+		System.out.println(mover.isApplicable(actualStates.get(soporteInicial), actualStates.get(1)));
+		
+		System.out.println("\n- Prueba 'isApplicable' movimiento NO VÁLIDO:\n");
+		System.out.println(mover.isApplicable(actualStates.get(1), actualStates.get(soporteInicial)));
+		
+		System.out.println("\n- Prueba 'effect' movimiento VÁLIDO:\n");
+
+		System.out.println("Antes de mover:\n");
+		printActualState();
+		if(mover.isApplicable(actualStates.get(soporteInicial), actualStates.get(1)))
+		{
+			List<State> listaEffect = mover.effect(actualStates.get(soporteInicial), actualStates.get(1));
+			actualStates.add(soporteInicial,listaEffect.get(0));
+			actualStates.add(1,listaEffect.get(1));
+		}
+		System.out.println("Después de mover:\n");
+		printActualState();
+		
+		System.out.println("a ver");
+		System.out.println(actualStates.get(3).toString());
+			
+	}
+
 	/**
 	 * Adds a problem initial state to the list of initial states.
 	 * 
 	 * @param initialState
 	 *            State that is one of the problem's initial states.
 	 */
-	public void addInitialState(State initialState) {
+	public void addInitialState() {
 //		if (initialState != null && !this.initialStates.contains(initialState)) {
 //			this.initialStates.add(initialState);
 //		}
+		State s;
 		for(int i=0; i<numSoportes;i++)
 		{
-			initialStates.add(new State(numDiscos,false));
+			s = new State(numDiscos,false);
+			initialStates.add(i,s);
 		}
-		initialStates.add(soporteInicial,new State(numDiscos,true));
+		s = new State(numDiscos,true);
+		initialStates.add(soporteInicial,s);
 		
 		for(int i=0; i<numSoportes;i++)
 		{
-			actualStates.add(new State(numDiscos,true));
+			s = new State(numDiscos,false);
+			actualStates.add(i,s);
 		}
-		actualStates.add(soporteInicial,new State(numDiscos,true));
+		s = new State(numDiscos,true);
+		actualStates.add(soporteInicial,s);
 		
 	}
 
@@ -91,18 +130,20 @@ public class Problem {
 	 * @param finalState
 	 *            State that is one of the problem's final states.
 	 */
-	public void addFinalState(State finalState) {
+	public void addFinalState() {
 //		if (finalState != null && !this.finalStates.contains(finalState)) {
 //			this.finalStates.add(finalState);
 //		}
+		
+		State s;
 		for(int i=0; i<numSoportes;i++)
 		{
-			initialStates.add(new State(numDiscos,false));
+			s = new State(numDiscos,false);
+			finalStates.add(s);
 		}
 		estadoFinal = new State(numDiscos,true);
 		finalStates.add(soporteFinal,estadoFinal);
 		
-//		finalStates.equals(initialStates);
 	}
 
 	/**
@@ -193,5 +234,12 @@ public class Problem {
 	 */
 	public State gatherPercepts(State state) {
 		return state;
+	}
+	public void printActualState()
+	{
+		for(int i=0;i<numSoportes;i++)
+		{
+			System.out.println(actualStates.get(i).toString() + "\n");
+		}
 	}
 }
