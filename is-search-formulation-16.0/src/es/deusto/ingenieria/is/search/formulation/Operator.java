@@ -108,11 +108,11 @@ public class Operator {
 	 *         operator is always applied the same way on a problem state</li>
 	 *         </ul>
 	 */
-	public final State apply(State state, Integer fichaMover, Integer torreDestino) {
+	public final State apply(State state, int disco, int soporteDestino) {
 		State successor = null;
 
-		if (state != null && this.isApplicable(state,fichaMover, torreDestino)) {
-			successor = this.effect(state,fichaMover, torreDestino);
+		if (state != null && this.isApplicable(state,disco,soporteDestino)) {
+			successor = effect(state,disco,soporteDestino);
 		}
 		else{
 			successor = state;
@@ -137,27 +137,33 @@ public class Operator {
 	 *         outside this package <i>es.deusto.ingenieria.aike.formulation</i>
 	 *         .
 	 */
-	protected boolean isApplicable(State state, int fichaMover, int torreDestino) {
-		boolean applicable = true;
-		System.out.println("Ficha:" + fichaMover);
-		int fichaMoverTorre = state.getList().get(fichaMover - 1);
-		System.out.println("tamaño" + state.getList().size());
-		for (int i = fichaMover; i < state.getList().size(); i++) {
+	protected boolean isApplicable(State state, int disco, int soporteDestino) {
+	
+		boolean isApplicable = true;
 
-			int fichaTorre = state.getList().get(i);
-			System.out.println("fichaTorre" + fichaTorre);
-			System.out.println("fichaMoverTorre" + fichaMoverTorre);
-			System.out.println("fichaMoverTorre" + fichaMoverTorre);
-			System.out.println("torreDestino" + torreDestino);
-			if (fichaTorre == fichaMoverTorre)
-				applicable = false;
-			if (torreDestino == fichaMoverTorre)
-				applicable = false;
-			if (fichaTorre == torreDestino)
-				applicable = false;
+		int soporteOrigen = state.getList().get(disco - 1);
+
+		for (int i=disco; i<state.getList().size(); i++) {
+
+			int aux = state.getList().get(i);
+
+			if(soporteDestino == soporteOrigen){//-El soporte destino no sea el mismo que el soporte origen
+				isApplicable = false;
+			}
+			else
+			{
+				if(aux == soporteOrigen){//-No haya discos más pequeños en el soporte origen
+					isApplicable = false;
+				}
+				else
+				{
+					if(aux==soporteDestino){//-Que no haya discos más pequeños en el soporte destino
+						isApplicable = false;
+					}
+				}
+			}
 		}
-		return applicable;
-
+		return isApplicable;
 	}
 
 	/**
@@ -175,12 +181,9 @@ public class Operator {
 	 *         outside this package <i>es.deusto.ingenieria.aike.formulation</i>
 	 *         .
 	 */
-	protected State effect(State state, Integer fichaMover, Integer torreDestino) {
-		System.out.println("sdfsdfasdfasdf");
-		state.getList().set(fichaMover-1, torreDestino);
-		System.out.println(state.getList().get(fichaMover-1));
+	protected State effect(State state, int disco, int soporteDestino) {
+		state.getList().set(disco-1, soporteDestino);
 		return state;
-
 	}
 
 	/**

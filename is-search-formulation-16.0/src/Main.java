@@ -8,7 +8,7 @@ public class Main {
 	private static int numDiscos;
 	private static int soporteInicial;
 	private static int soporteFinal;
-	
+
 	private static Problem problem;
 
 	public static void main(String[] args) {
@@ -43,38 +43,41 @@ public class Main {
 
 		// SOPORTE INICIAL
 		do {
-			System.out.println("Introduzca el soporte INICIAL (0-" + (numSoportes - 1) + "):\n");
+			System.out.println("Introduzca el soporte INICIAL:\n");
 			while (!sc.hasNextInt()) {
 				System.out.println("Introduzca un número válido por favor\n");
 				sc.next();
 			}
 			soporteInicial = sc.nextInt();
-		} while ((soporteInicial < 0) || (soporteInicial > (numSoportes - 1)));
+		} while ((soporteInicial < 1) || (soporteInicial > numSoportes));
 
 		// SOPORTE FINAL
 		do {
-			System.out.println(
-					"Introduzca el soporte FINAL (0-" + (numSoportes - 1) + ", excepto el " + soporteInicial + "):\n");
+			System.out.println("Introduzca el soporte FINAL (excepto el " + soporteInicial + "):\n");
 			while (!sc.hasNextInt()) {
 				System.out.println("Introduzca un número válido por favor\n");
 				sc.next();
 			}
 			soporteFinal = sc.nextInt();
-		} while ((soporteFinal < 0) || (soporteFinal > (numSoportes - 1)) || (soporteFinal == soporteInicial));
-		
+		} while ((soporteFinal < 1) || (soporteFinal > numSoportes) || (soporteFinal == soporteInicial));
+
 		sc.close();
-		
-		//DATOS INTRODUCIDOS
+
+		// DATOS INTRODUCIDOS
 		System.out.println("Datos introducidos");
 		System.out.println("\tNúmero de SOPORTES: " + numSoportes);
 		System.out.println("\tNúmero de DISCOS: " + numDiscos);
 		System.out.println("\tSoporte INICIAL: " + soporteInicial);
 		System.out.println("\tSoporte FINAL: " + soporteFinal);
+
+		soporteInicial = soporteInicial - 1;
+		soporteFinal = soporteFinal - 1;
 	}
-	public static void initProblem()
-	{
-		problem = new Problem(numSoportes,numDiscos,soporteInicial,soporteFinal);
-		
+
+	public static void initProblem() {
+		problem = new Problem(numSoportes, numDiscos, soporteInicial, soporteFinal);
+		problem.runTest();
+
 	}
 
 }
