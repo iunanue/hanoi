@@ -1,5 +1,3 @@
-package main;
-
 import java.util.Scanner;
 
 import es.deusto.ingenieria.is.search.formulation.Problem;

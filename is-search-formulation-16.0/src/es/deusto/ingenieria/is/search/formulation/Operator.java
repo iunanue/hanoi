@@ -1,8 +1,5 @@
 package es.deusto.ingenieria.is.search.formulation;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Abstract class defining a problem's operator. Operator represents the way
  * problem states are created, since the result of applying an operator on a
@@ -14,7 +11,6 @@ import java.util.List;
  */
 public class Operator {
 
-	private int numDiscos;
 	/**
 	 * Operator's name.
 	 */
@@ -28,9 +24,8 @@ public class Operator {
 	/**
 	 * Constructor method. Instantiates an operator with no name and cost zero.
 	 */
-	public Operator(int numDiscos) {
+	public Operator() {
 		this.name = "mover";
-		this.numDiscos = numDiscos;
 	}
 
 	/**
@@ -104,7 +99,7 @@ public class Operator {
 	 * @return State resulting from applying the operator or <i>null</i> if the
 	 *         operator can't be applied on the state received as parameter, or
 	 *         an error happens during the operator application. <br/>
-	 * <br/>
+	 *         <br/>
 	 *         <ul>
 	 *         <li>This method's implementation uses methods <i>isApplicable</i>
 	 *         and <i>effect</i>.</li>
@@ -113,13 +108,15 @@ public class Operator {
 	 *         operator is always applied the same way on a problem state</li>
 	 *         </ul>
 	 */
-	public final State apply(State state) {
+	public final State apply(State state, Integer fichaMover, Integer torreDestino) {
 		State successor = null;
 
-		if (state != null && this.isApplicable(state, successor)) {
-//			successor = this.effect(state,);
+		if (state != null && this.isApplicable(state,fichaMover, torreDestino)) {
+			successor = this.effect(state,fichaMover, torreDestino);
 		}
-
+		else{
+			successor = state;
+		}
 		return successor;
 	}
 
@@ -128,38 +125,39 @@ public class Operator {
 	 * 
 	 * @param state
 	 *            State to which the operator is to be applied.
-	 * @return <ul>
+	 * @return
+	 * 		<ul>
 	 *         <li><b>true</b> - if the operator applies.</li>
 	 *         <li><b>false</b> - if the operator can not be applied.</li>
 	 *         </ul>
-	 * <br/>
-	 * <br/>
+	 *         <br/>
+	 *         <br/>
 	 *         <b>Note</b>: This method is <i><b>protected</b></i> to avoid its
 	 *         invocation by classes other than operator subclasses or classes
-	 *         outside this package <i>es.deusto.ingenieria.aike.formulation</i>.
+	 *         outside this package <i>es.deusto.ingenieria.aike.formulation</i>
+	 *         .
 	 */
-	protected boolean isApplicable(State stateOrigen, State stateDestino) {
-		boolean aplicable = false;
+	protected boolean isApplicable(State state, int fichaMover, int torreDestino) {
+		boolean applicable = true;
+		System.out.println("Ficha:" + fichaMover);
+		int fichaMoverTorre = state.getList().get(fichaMover - 1);
+		System.out.println("tamaño" + state.getList().size());
+		for (int i = fichaMover; i < state.getList().size(); i++) {
 
-		if(stateOrigen.getDiscoTop()==0)
-		{
-			aplicable = false; 
+			int fichaTorre = state.getList().get(i);
+			System.out.println("fichaTorre" + fichaTorre);
+			System.out.println("fichaMoverTorre" + fichaMoverTorre);
+			System.out.println("fichaMoverTorre" + fichaMoverTorre);
+			System.out.println("torreDestino" + torreDestino);
+			if (fichaTorre == fichaMoverTorre)
+				applicable = false;
+			if (torreDestino == fichaMoverTorre)
+				applicable = false;
+			if (fichaTorre == torreDestino)
+				applicable = false;
 		}
-		else
-		{
-			if(stateDestino.getDiscoTop()==0)
-			{
-				aplicable = true;
-			}
-			else
-			{
-				if(stateOrigen.getDiscoTop()<stateOrigen.getDiscoTop())
-				{
-					aplicable = true;
-				}
-			}
-		}
-		return aplicable;
+		return applicable;
+
 	}
 
 	/**
@@ -171,34 +169,18 @@ public class Operator {
 	 *            state is the current problem state.
 	 * @return State is the newly generated state or <i>null</i> if an error
 	 *         occurs. <br/>
-	 * <br/>
+	 *         <br/>
 	 *         <b>Note</b>: This method is <i><b>protected</b></i> to avoid its
 	 *         invocation by classes other than operator subclasses or classes
-	 *         outside this package <i>es.deusto.ingenieria.aike.formulation</i>.
+	 *         outside this package <i>es.deusto.ingenieria.aike.formulation</i>
+	 *         .
 	 */
-	protected List<State> effect(State stateOrigen, State stateDestino) {
-		List<State> listEffect = new ArrayList<State>();
-		
-		int disco = stateOrigen.getDiscoTop();
-//		System.out.println(disco);
-//		System.out.println(stateOrigen.getTop());
-//		System.out.println(stateDestino.getTop());
-		
-		stateOrigen.getLista().add(stateOrigen.getTop(),0);
-		
-		if(stateDestino.getTop() == 0)
-		{
-			stateDestino.getLista().add(0,disco);
-		}
-		else
-		{	
-			stateDestino.getLista().add(stateDestino.getTop()+1,disco);
-		}
-		
-		listEffect.add(stateOrigen);
-		listEffect.add(stateDestino);
-		
-		return listEffect;
+	protected State effect(State state, Integer fichaMover, Integer torreDestino) {
+		System.out.println("sdfsdfasdfasdf");
+		state.getList().set(fichaMover-1, torreDestino);
+		System.out.println(state.getList().get(fichaMover-1));
+		return state;
+
 	}
 
 	/**
