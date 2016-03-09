@@ -138,28 +138,31 @@ public class Operator {
 	 *         .
 	 */
 	protected boolean isApplicable(State state, int disco, int soporteDestino) {
-	
 		boolean isApplicable = true;
 
 		int soporteOrigen = state.getList().get(disco - 1);
-
-		for (int i=disco; i<state.getList().size(); i++) {
-
-			int aux = state.getList().get(i);
-
-			if(soporteDestino == soporteOrigen){//-El soporte destino no sea el mismo que el soporte origen
-				isApplicable = false;
+		
+		if(soporteDestino == soporteOrigen){//-El soporte destino no sea el mismo que el soporte origen
+			isApplicable = false;
+		}
+		else{
+			if((disco-1) ==state.getList().size())
+			{
+				isApplicable = true;
 			}
 			else
 			{
-				if(aux == soporteOrigen){//-No haya discos más pequeños en el soporte origen
-					isApplicable = false;
-				}
-				else
-				{
-					if(aux==soporteDestino){//-Que no haya discos más pequeños en el soporte destino
-						isApplicable = false;
-					}
+				for (int i=disco; i<state.getList().size(); i++) {
+					int soporteAux = state.getList().get(i);
+						if(soporteAux == soporteOrigen){//-No haya discos más pequeños en el soporte origen
+							isApplicable = false;
+						}
+						else
+						{
+							if(soporteAux==soporteDestino){//-Que no haya discos más pequeños en el soporte destino
+								isApplicable = false;
+							}
+						}
 				}
 			}
 		}

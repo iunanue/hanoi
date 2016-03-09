@@ -18,6 +18,9 @@ public class Problem {
 	private int soporteInicial;
 	private int soporteFinal;
 	
+	private int disco;
+	private int soporteDestino;
+	
 	private State estadoActual;
 	private State estadoFinal;
 	
@@ -198,14 +201,22 @@ public class Problem {
 		
 		//Pruebas con 3 discos y 3 soportes (soporteInicial 1) (soporteFinal 3)
 		
-		System.out.println("\n- Prueba 'isApplicable' movimiento NO VÁLIDO:\n");//probar mover al mismo
-		System.out.println(mover.isApplicable(estadoActual,3,soporteInicial));
+		System.out.println("\n- Prueba 'isApplicable' movimiento NO VÁLIDO (mover al mismo soporte):\n");//probar mover al mismo
+		disco = 3;
+		soporteDestino = soporteInicial;
+		System.out.println(mover.isApplicable(estadoActual,disco,soporteDestino));
 		
-		System.out.println("\n- Prueba 'isApplicable' movimiento VÁLIDO:\n");//probar mover al 2
-		System.out.println(mover.isApplicable(estadoActual,3,2));
+		System.out.println("\n- Prueba 'isApplicable' movimiento NO VÁLIDO (mover un disco de abajo):\n");//probar mover disco de abajo del todo
+		disco = 1;
+		soporteDestino = 2;
+		System.out.println(mover.isApplicable(estadoActual,disco,soporteDestino));
 		
-		System.out.println("\n- Prueba 'isApplicable' movimiento NO VÁLIDO:\n");//probar mover disco de abajo del todo
-		System.out.println(mover.isApplicable(estadoActual,1,2));
+		System.out.println("\n- Prueba 'isApplicable' movimiento VÁLIDO (mover un disco de abajo): \n");//probar mover al 2
+		disco = 3;
+		soporteDestino = 2;
+		System.out.println(mover.isApplicable(estadoActual,disco,soporteDestino));
+		
+
 		
 		
 		System.out.println("\n- Prueba 'apply' movimiento VÁLIDO:\n");
@@ -213,7 +224,9 @@ public class Problem {
 		System.out.println("Antes de mover:\n");
 		System.out.println(estadoActual.toString(numSoportes));
 		
-		estadoActual = mover.apply(estadoActual,3,1);
+		disco = 3;
+		soporteDestino = 1;
+		estadoActual = mover.apply(estadoActual,disco,soporteDestino);
 		
 		System.out.println("Después de mover:\n");
 		System.out.println(estadoActual.toString(numSoportes));
