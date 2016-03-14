@@ -1,5 +1,6 @@
 import java.util.Scanner;
 
+import es.deusto.ingenieria.is.search.algorithms.blind.DepthFS;
 import es.deusto.ingenieria.is.search.formulation.Problem;
 
 public class Main {
@@ -76,7 +77,11 @@ public class Main {
 
 	public static void initProblem() {
 		problem = new Problem(numSoportes, numDiscos, soporteInicial, soporteFinal);
-		problem.runTest();
+//		problem.addInitialState(problem.gatherInitialPercepts());
+//		
+//		problem.solve(DepthFS.getInstance());
+//		
+//		problem.solve(new BestFS(new AttacksEvaluationFunction()));
 
 	}
 

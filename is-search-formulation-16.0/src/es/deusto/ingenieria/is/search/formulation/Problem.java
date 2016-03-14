@@ -1,7 +1,17 @@
 package es.deusto.ingenieria.is.search.formulation;
 
 import java.util.List;
+
+import es.deusto.ingenieria.is.search.algorithms.Node;
+import es.deusto.ingenieria.is.search.algorithms.SearchMethod;
+import es.deusto.ingenieria.is.search.algorithms.blind.DepthFS;
+import es.deusto.ingenieria.is.search.algorithms.heuristic.BestFS;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
 
 /**
  * Class defining a problem's formulation for it to be solved by a search method.
@@ -12,23 +22,24 @@ import java.util.ArrayList;
  */
 public class Problem {
 
-	private Operator mover;
+//	private Operator mover;
 	private int numSoportes;
 	private int numDiscos;
 	private int soporteInicial;
 	private int soporteFinal;
 	
-	private int disco;
-	private int soporteDestino;
+//	private int disco;
+//	private int soporteDestino;
 	
-	private State estadoActual;
-	private State estadoFinal;
+
+	
+	Operator operator;
 	
 	/**
 	 * List containing the problem's initial states.
 	 */
 	
-	private State actualState;
+//	private State actualState;
 	
 	private List<State> initialStates;
 
@@ -51,12 +62,17 @@ public class Problem {
 		this.numDiscos = numDiscos;
 		this.soporteInicial = soporteInicial;
 		this.soporteFinal = soporteFinal;
-		mover = new Operator();
 		
 		this.operators = new ArrayList<Operator>();
 		
 		addInitialState();
 		addFinalState();
+		System.out.println(initialStates.get(0).getList().size());
+//		System.out.println(finalStates.get(0).getList().size());
+		addOperators();
+		
+		solve(DepthFS.getInstance());
+//		solve(new BestFS(new AttacksEvaluationFunction()));
 //		runTest();
 		
 	}
@@ -77,7 +93,7 @@ public class Problem {
 		}
 		initialState.setList(list);
 		initialStates.add(initialState);
-		estadoActual = initialState;
+		
 	}
 
 	/**
@@ -125,6 +141,16 @@ public class Problem {
 	 * @param operator
 	 *            Operator that is one of the problem's operators.
 	 */
+	
+	public void addOperators() {
+		for(int i=0;i<numDiscos;i++){
+			for(int j=0;j<numSoportes;j++){
+				operator = new Operator(i,j,numSoportes);//i=numdisco j=soportedestino
+				addOperator(operator);
+				System.out.println(i+ " " + j);
+			}
+		}
+	}
 	public void addOperator(Operator operator) {
 		if (operator != null && !this.operators.contains(operator)) {
 			this.operators.add(operator);
@@ -153,7 +179,7 @@ public class Problem {
 	 */
 	public boolean isFinalState(State state) {
 		if (state != null) {
-			return state.equals(estadoFinal);
+			return state.equals(finalStates.get(0));
 		} else {
 			return false;
 		}
@@ -197,40 +223,74 @@ public class Problem {
 	public State gatherPercepts(State state) {
 		return state;
 	}
-	public void runTest() {
-		
-		//Pruebas con 3 discos y 3 soportes (soporteInicial 1) (soporteFinal 3)
-		
-		System.out.println("\n- Prueba 'isApplicable' movimiento NO VÁLIDO (mover al mismo soporte):\n");//probar mover al mismo
-		disco = 3;
-		soporteDestino = soporteInicial;
-		System.out.println(mover.isApplicable(estadoActual,disco,soporteDestino));
-		
-		System.out.println("\n- Prueba 'isApplicable' movimiento NO VÁLIDO (mover un disco de abajo):\n");//probar mover disco de abajo del todo
-		disco = 1;
-		soporteDestino = 2;
-		System.out.println(mover.isApplicable(estadoActual,disco,soporteDestino));
-		
-		System.out.println("\n- Prueba 'isApplicable' movimiento VÁLIDO (mover un disco de abajo): \n");//probar mover al 2
-		disco = 3;
-		soporteDestino = 2;
-		System.out.println(mover.isApplicable(estadoActual,disco,soporteDestino));
-		
+//	public void runTest() {
+//		
+//		//Pruebas con 3 discos y 3 soportes (soporteInicial 1) (soporteFinal 3)
+//		
+//		System.out.println("\n- Prueba 'isApplicable' movimiento NO VÁLIDO (mover al mismo soporte):\n");//probar mover al mismo
+//		disco = 3;
+//		soporteDestino = soporteInicial;
+//		System.out.println(mover.isApplicable(estadoActual,disco,soporteDestino));
+//		
+//		System.out.println("\n- Prueba 'isApplicable' movimiento NO VÁLIDO (mover un disco de abajo):\n");//probar mover disco de abajo del todo
+//		disco = 1;
+//		soporteDestino = 2;
+//		System.out.println(mover.isApplicable(estadoActual,disco,soporteDestino));
+//		
+//		System.out.println("\n- Prueba 'isApplicable' movimiento VÁLIDO (mover un disco de abajo): \n");//probar mover al 2
+//		disco = 3;
+//		soporteDestino = 2;
+//		System.out.println(mover.isApplicable(estadoActual,disco,soporteDestino));
+//		
+//
+//		
+//		
+//		System.out.println("\n- Prueba 'apply' movimiento VÁLIDO:\n");
+//
+//		System.out.println("Antes de mover:\n");
+//		System.out.println(estadoActual.toString(numSoportes));
+//		
+//		disco = 3;
+//		soporteDestino = 1;
+//		estadoActual = mover.apply(estadoActual,disco,soporteDestino);
+//		
+//		System.out.println("Después de mover:\n");
+//		System.out.println(estadoActual.toString(numSoportes));		
+//	}
+	public void solve(SearchMethod searchMethod) {
+		SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss.S");
+		Date beginDate = GregorianCalendar.getInstance().getTime();
+		System.out.println("\n* Start '" + searchMethod.getClass().getSimpleName() + "' (" + formatter.format(beginDate) + ")");				
 
+		Node finalNode = searchMethod.search(this, this.getInitialStates().get(0));
 		
+		Date endDate = GregorianCalendar.getInstance().getTime();		
+		System.out.println("* End   '" + searchMethod.getClass().getSimpleName() + "' (" + formatter.format(endDate) + ")");
 		
-		System.out.println("\n- Prueba 'apply' movimiento VÁLIDO:\n");
-
-		System.out.println("Antes de mover:\n");
-		System.out.println(estadoActual.toString(numSoportes));
+		long miliseconds = (int) Math.abs(beginDate.getTime() - endDate.getTime());
+		long seconds = miliseconds / 1000;
+		miliseconds %= 1000;		
+		long minutes = seconds / 60;
+		seconds %= 60;
+		long hours = minutes / 60;
+		minutes %= 60;
 		
-		disco = 3;
-		soporteDestino = 1;
-		estadoActual = mover.apply(estadoActual,disco,soporteDestino);
+		String time = "\n* Serach lasts: ";
+		time += (hours > 0) ? hours + " h " : " ";
+		time += (minutes > 0) ? minutes + " m " : " ";
+		time += (seconds > 0) ? seconds + "s " : " ";
+		time += (miliseconds > 0) ? miliseconds + "ms " : " ";
 		
-		System.out.println("Después de mover:\n");
-		System.out.println(estadoActual.toString(numSoportes));
+		System.out.println(time);
 		
-			
+		if (finalNode != null) {
+			System.out.println("\n- Solution found!     :)");
+			List<String> operators = new ArrayList<String>();
+			searchMethod.solutionPath(finalNode, operators);
+			searchMethod.createSolutionLog(operators);			
+			System.out.println("- Final state:\n" + finalNode.getState());
+		} else {
+			System.out.println("\n- Unable to find the solution!     :(");
+		}
 	}
 }

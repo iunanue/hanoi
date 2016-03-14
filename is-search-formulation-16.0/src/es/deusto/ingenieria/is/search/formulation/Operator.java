@@ -21,6 +21,12 @@ public class Operator {
 	 */
 	private double cost;
 
+	private int disco;
+	private int soporteDestino;
+	private State estado;
+	
+	private int numSoportes;
+	
 	/**
 	 * Constructor method. Instantiates an operator with no name and cost zero.
 	 */
@@ -37,6 +43,12 @@ public class Operator {
 	 */
 	public Operator(String name) {
 		this.name = name;
+	}
+	public Operator(int disco, int soporteDestino, int numSoportes) {
+		this.name = "mover";
+		this.disco = disco;
+		this.soporteDestino = soporteDestino;
+		this.numSoportes = numSoportes;
 	}
 
 	/**
@@ -61,6 +73,13 @@ public class Operator {
 		return this.cost;
 	}
 
+	public State getState(){
+		return estado;
+	}
+	public void setState(State estado){
+		this.estado = estado;
+	}
+	
 	/**
 	 * Modifies the value of the operator's cost.
 	 * 
@@ -108,11 +127,11 @@ public class Operator {
 	 *         operator is always applied the same way on a problem state</li>
 	 *         </ul>
 	 */
-	public final State apply(State state, int disco, int soporteDestino) {
+	public final State apply(State state) {
 		State successor = null;
 
-		if (state != null && this.isApplicable(state,disco,soporteDestino)) {
-			successor = effect(state,disco,soporteDestino);
+		if (state != null && this.isApplicable(state)) {
+			successor = effect(state);
 		}
 		else{
 			successor = state;
@@ -137,16 +156,16 @@ public class Operator {
 	 *         outside this package <i>es.deusto.ingenieria.aike.formulation</i>
 	 *         .
 	 */
-	protected boolean isApplicable(State state, int disco, int soporteDestino) {
+	protected boolean isApplicable(State state) {//mirar esto
 		boolean isApplicable = true;
-
-		int soporteOrigen = state.getList().get(disco - 1);
+		
+		int soporteOrigen = state.getList().get(disco);
 		
 		if(soporteDestino == soporteOrigen){//-El soporte destino no sea el mismo que el soporte origen
 			isApplicable = false;
 		}
 		else{
-			if((disco-1) ==state.getList().size())
+			if((disco) ==state.getList().size())
 			{
 				isApplicable = true;
 			}
@@ -166,6 +185,7 @@ public class Operator {
 				}
 			}
 		}
+		System.out.println(isApplicable);
 		return isApplicable;
 	}
 
@@ -184,9 +204,10 @@ public class Operator {
 	 *         outside this package <i>es.deusto.ingenieria.aike.formulation</i>
 	 *         .
 	 */
-	protected State effect(State state, int disco, int soporteDestino) {
-		state.getList().set(disco-1, soporteDestino);
-		return state;
+	protected State effect(State state) {
+		State newState = state.clone();
+		newState.getList().set(disco-1, soporteDestino);
+		return newState;
 	}
 
 	/**

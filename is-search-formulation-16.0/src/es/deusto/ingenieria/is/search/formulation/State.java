@@ -73,6 +73,11 @@ public class State {
 		return equals;
 
 	}
+	public State clone(){
+		State state = new State();
+		state.setList(this.getList());
+		return state;
+	}
 
 	public List<Integer> getList() {
 		return list;
