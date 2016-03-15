@@ -36,10 +36,10 @@ public class State {
 	public String toString(int numSoportes) {
 		String string = "";
 		for(int i=0;i<numSoportes;i++){
-			string = string + ("Soporte: " + (i+1) + "\n");
+			string = string + ("Soporte: " + i + "\n");
 			for(int j=(list.size()-1);j>=0;j--){
 				if((list.get(j))==i){
-					string = string + ("[" + (j+1) + "]") + "\n";
+					string = string + ("[" + j + "]") + "\n";
 				}
 			}
 		}
@@ -63,10 +63,10 @@ public class State {
 	 *         </li>
 	 *         <li><b>false</b> - otherwise.</li>
 	 */
-	public boolean equals(State state) {
+	public boolean equals(State finalState) {
 		boolean equals = false;
-		for (int i=0; i<state.getList().size(); i++) {
-			if (state.getList().get(i) == list.get(i)) {
+		for (int i=0; i<finalState.getList().size(); i++) {
+			if (finalState.getList().get(i) == list.get(i)) {
 				equals = true;
 			}
 		}

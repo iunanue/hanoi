@@ -67,11 +67,12 @@ public class Problem {
 		
 		addInitialState();
 		addFinalState();
-		System.out.println(initialStates.get(0).getList().size());
-//		System.out.println(finalStates.get(0).getList().size());
+		System.out.println(getInitialStates().get(0).toString(numSoportes));
+		System.out.println(getFinalStates().get(0).toString(numSoportes));
 		addOperators();
 		
 		solve(DepthFS.getInstance());
+//		System.out.println(getFinalStates().get(0).toString(numSoportes));
 //		solve(new BestFS(new AttacksEvaluationFunction()));
 //		runTest();
 		
@@ -178,6 +179,8 @@ public class Problem {
 	 *         <li>false - if state is not found in the list of final states.</li>
 	 */
 	public boolean isFinalState(State state) {
+		
+		
 		if (state != null) {
 			return state.equals(finalStates.get(0));
 		} else {
@@ -288,7 +291,7 @@ public class Problem {
 			List<String> operators = new ArrayList<String>();
 			searchMethod.solutionPath(finalNode, operators);
 			searchMethod.createSolutionLog(operators);			
-			System.out.println("- Final state:\n" + finalNode.getState());
+			System.out.println("\n- Final state:\n" + finalNode.getState().toString(numSoportes));
 		} else {
 			System.out.println("\n- Unable to find the solution!     :(");
 		}
