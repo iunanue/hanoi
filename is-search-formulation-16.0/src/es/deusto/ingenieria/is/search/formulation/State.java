@@ -78,9 +78,13 @@ public class State {
 
 	}
 	public State clone(){
-		State state = new State();
-		state.setList(this.getList());
-		return state;
+
+		State clon = new State();
+		for(int i = 0; i < list.size(); i++) 
+		{
+			clon.getList().add(i, list.get(i));
+		}
+		return clon;
 	}
 
 	public List<Integer> getList() {
@@ -89,5 +93,6 @@ public class State {
 
 	public void setList(List<Integer> list) {
 		this.list = list;
+		
 	}
 }

@@ -215,8 +215,21 @@ public class Operator {
 	 *         .
 	 */
 	protected State effect(State state) {
+		System.out.println("Antes del clone");
+		System.out.println(state.toString(numSoportes));
+		
 		State newState = state.clone();
+		
+		System.out.println("Despues del clone");
+		System.out.println(newState.toString(numSoportes));
+		
 		newState.getList().set(disco, soporteDestino);
+		System.out.println("Despues del movimiento nuevo");
+		System.out.println(newState.toString(numSoportes));
+		
+		System.out.println("Despues del movimiento viejo");
+		System.out.println(state.toString(numSoportes));
+		
 		return newState;
 	}
 
