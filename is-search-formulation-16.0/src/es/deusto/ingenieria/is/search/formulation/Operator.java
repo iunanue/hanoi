@@ -24,9 +24,9 @@ public class Operator {
 	private int disco;
 	private int soporteDestino;
 	private State estado;
-	
+
 	private int numSoportes;
-	
+
 	/**
 	 * Constructor method. Instantiates an operator with no name and cost zero.
 	 */
@@ -44,6 +44,7 @@ public class Operator {
 	public Operator(String name) {
 		this.name = name;
 	}
+
 	public Operator(int disco, int soporteDestino, int numSoportes) {
 		this.name = "mover";
 		this.disco = disco;
@@ -73,13 +74,14 @@ public class Operator {
 		return this.cost;
 	}
 
-	public State getState(){
+	public State getState() {
 		return estado;
 	}
-	public void setState(State estado){
+
+	public void setState(State estado) {
 		this.estado = estado;
 	}
-	
+
 	/**
 	 * Modifies the value of the operator's cost.
 	 * 
@@ -132,8 +134,7 @@ public class Operator {
 
 		if (state != null && this.isApplicable(state)) {
 			successor = effect(state);
-		}
-		else{
+		} else {
 			successor = state;
 		}
 		return successor;
@@ -156,46 +157,96 @@ public class Operator {
 	 *         outside this package <i>es.deusto.ingenieria.aike.formulation</i>
 	 *         .
 	 */
-	protected boolean isApplicable(State state) {//mirar esto
-		
+	// protected boolean isApplicable(State state) {//mirar esto
+	//
+	// boolean isApplicable = true;
+	//
+	// int soporteOrigen = state.getList().get(disco);
+	// System.out.println("\nDisco: " + disco + " Soporte destino: " +
+	// soporteDestino + " Soporte origen: " + soporteOrigen);
+	//
+	// if(soporteDestino == soporteOrigen){//-El soporte destino no sea el mismo
+	// que el soporte origen
+	// isApplicable = false;
+	// System.out.println("El soporte destino no sea el mismo que el soporte
+	// origen");
+	// System.out.println(isApplicable);
+	// }
+	// else{
+	// if((disco) == (state.getList().size()-1))
+	// {
+	// isApplicable = true;
+	// System.out.println("Es el mas pequeño");
+	// System.out.println(isApplicable);
+	// }
+	// else
+	// {
+	// for (int i=disco; i<state.getList().size(); i++) {
+	// int soporteAux = state.getList().get(i);
+	// if(soporteAux == soporteOrigen){//-No haya discos más pequeños en el
+	// soporte origen
+	// isApplicable = false;
+	// System.out.println("No haya discos más pequeños en el soporte origen");
+	// System.out.println(isApplicable);
+	// }
+	// else
+	// {
+	// if(soporteAux==soporteDestino){//-Que no haya discos más pequeños en el
+	// soporte destino
+	// isApplicable = false;
+	// System.out.println("Que no haya discos más pequeños en el soporte
+	// destino");
+	// System.out.println(isApplicable);
+	// }
+	// }
+	// }
+	// }
+	// }
+	//// System.out.println(isApplicable);
+	// return isApplicable;
+	// }
+
+	protected boolean isApplicable(State state) {// mirar esto
+
 		boolean isApplicable = true;
-		
+
 		int soporteOrigen = state.getList().get(disco);
-		System.out.println("\nDisco: " + disco + " Soporte destino: " + soporteDestino + " Soporte origen: " + soporteOrigen);
-		
-		if(soporteDestino == soporteOrigen){//-El soporte destino no sea el mismo que el soporte origen
+		System.out.println(
+				"\nDisco: " + disco + " Soporte destino: " + soporteDestino + " Soporte origen: " + soporteOrigen);
+
+		if (soporteDestino == soporteOrigen) {// -El soporte destino no sea el
+												// mismo que el soporte origen
 			isApplicable = false;
 			System.out.println("El soporte destino no sea el mismo que el soporte origen");
 			System.out.println(isApplicable);
-		}
-		else{
-			if((disco) == (state.getList().size()-1))
-			{
+		} else {
+			if ((disco) == (state.getList().size() - 1)) {
 				isApplicable = true;
 				System.out.println("Es el mas pequeño");
 				System.out.println(isApplicable);
-			}
-			else
-			{
-				for (int i=disco; i<state.getList().size(); i++) {
+			} else {
+				for (int i = disco + 1; i < state.getList().size(); i++) {
+
 					int soporteAux = state.getList().get(i);
-						if(soporteAux == soporteOrigen){//-No haya discos más pequeños en el soporte origen
+					if (soporteAux == soporteOrigen) {// -No haya discos más
+														// pequeños en el
+														// soporte origen
+						isApplicable = false;
+						System.out.println("No haya discos más pequeños en el soporte origen");
+						System.out.println(isApplicable);
+					} else {
+						if (soporteAux == soporteDestino) {// -Que no haya
+															// discos más
+															// pequeños en el
+															// soporte destino
 							isApplicable = false;
-							System.out.println("No haya discos más pequeños en el soporte origen");
+							System.out.println("Que no haya discos más pequeños en el soporte destino");
 							System.out.println(isApplicable);
 						}
-						else
-						{
-							if(soporteAux==soporteDestino){//-Que no haya discos más pequeños en el soporte destino
-								isApplicable = false;
-								System.out.println("Que no haya discos más pequeños en el soporte destino");
-								System.out.println(isApplicable);
-							}
-						}
+					}
 				}
 			}
 		}
-//		System.out.println(isApplicable);
 		return isApplicable;
 	}
 
@@ -217,19 +268,19 @@ public class Operator {
 	protected State effect(State state) {
 		System.out.println("Antes del clone");
 		System.out.println(state.toString(numSoportes));
-		
+
 		State newState = state.clone();
-		
+
 		System.out.println("Despues del clone");
 		System.out.println(newState.toString(numSoportes));
-		
+
 		newState.getList().set(disco, soporteDestino);
 		System.out.println("Despues del movimiento nuevo");
 		System.out.println(newState.toString(numSoportes));
-		
+
 		System.out.println("Despues del movimiento viejo");
 		System.out.println(state.toString(numSoportes));
-		
+
 		return newState;
 	}
 
