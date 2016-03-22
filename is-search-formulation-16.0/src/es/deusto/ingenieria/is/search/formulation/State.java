@@ -63,27 +63,28 @@ public class State {
 	 *         </li>
 	 *         <li><b>false</b> - otherwise.</li>
 	 */
-	public boolean equals(State finalState) {
-		System.out.println("Isfinalstate");
-		System.out.println(this.toString(3));
-		System.out.println(finalState.toString(3));
-		boolean equals = true;
-		for (int i=0; i<finalState.getList().size(); i++) {
-			if (finalState.getList().get(i) != list.get(i)) {
-				equals = false;
+	public boolean equals(State finalState) {	
+		if (finalState != null) {
+			List<Integer> listaFinalState = finalState.getList();
+			boolean equals = true;
+			for (int i = 0; i < listaFinalState.size(); i++) {
+				if(listaFinalState.get(i)!=this.list.get(i))
+					equals = false;
 			}
+			return equals;
+		} else {
+			return false;
 		}
-		System.out.println(equals);
-		return equals;
-
 	}
 	public State clone(){
 
 		State clon = new State();
-		for(int i = 0; i < list.size(); i++) 
+		List<Integer> clonList = new ArrayList<Integer>();
+		for(int i = 0; i < this.list.size(); i++) 
 		{
-			clon.getList().add(i, list.get(i));
+			clonList.add(i, list.get(i));
 		}
+		clon.setList(clonList);
 		return clon;
 	}
 

@@ -5,6 +5,7 @@ import java.util.List;
 import es.deusto.ingenieria.is.search.algorithms.Node;
 import es.deusto.ingenieria.is.search.algorithms.SearchMethod;
 import es.deusto.ingenieria.is.search.algorithms.blind.DepthFS;
+import es.deusto.ingenieria.is.search.algorithms.blind.DepthFSwithLog;
 import es.deusto.ingenieria.is.search.algorithms.heuristic.BestFS;
 
 import java.text.SimpleDateFormat;
@@ -71,7 +72,7 @@ public class Problem {
 		System.out.println(getFinalStates().get(0).toString(numSoportes));
 		addOperators();
 		
-		solve(DepthFS.getInstance());
+		solve(DepthFSwithLog.getInstance());
 //		System.out.println(getFinalStates().get(0).toString(numSoportes));
 //		solve(new BestFS(new AttacksEvaluationFunction()));
 //		runTest();
