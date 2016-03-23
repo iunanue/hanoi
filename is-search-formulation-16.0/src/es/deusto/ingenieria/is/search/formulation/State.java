@@ -1,5 +1,6 @@
 package es.deusto.ingenieria.is.search.formulation;
 
+import java.time.temporal.IsoFields;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,17 +65,21 @@ public class State {
 	 *         <li><b>false</b> - otherwise.</li>
 	 */
 	public boolean equals(State finalState) {	
+		boolean equals;
 		if (finalState != null) {
 			List<Integer> listaFinalState = finalState.getList();
-			boolean equals = true;
+			equals = true;
 			for (int i = 0; i < listaFinalState.size(); i++) {
-				if(listaFinalState.get(i)!=this.list.get(i))
+				if(listaFinalState.get(i)!=this.list.get(i)){
 					equals = false;
+				}
+					System.out.println("Equals: " + equals);
 			}
 			return equals;
 		} else {
 			return false;
 		}
+		
 	}
 	public State clone(){
 

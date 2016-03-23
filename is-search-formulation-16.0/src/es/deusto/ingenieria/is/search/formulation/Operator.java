@@ -134,6 +134,7 @@ public class Operator {
 
 		if (state != null && this.isApplicable(state)) {
 			successor = effect(state);
+			System.out.println("Sucessor: " + successor.toString(3));
 		} else {
 			successor = state;
 		}
@@ -157,54 +158,7 @@ public class Operator {
 	 *         outside this package <i>es.deusto.ingenieria.aike.formulation</i>
 	 *         .
 	 */
-	// protected boolean isApplicable(State state) {//mirar esto
-	//
-	// boolean isApplicable = true;
-	//
-	// int soporteOrigen = state.getList().get(disco);
-	// System.out.println("\nDisco: " + disco + " Soporte destino: " +
-	// soporteDestino + " Soporte origen: " + soporteOrigen);
-	//
-	// if(soporteDestino == soporteOrigen){//-El soporte destino no sea el mismo
-	// que el soporte origen
-	// isApplicable = false;
-	// System.out.println("El soporte destino no sea el mismo que el soporte
-	// origen");
-	// System.out.println(isApplicable);
-	// }
-	// else{
-	// if((disco) == (state.getList().size()-1))
-	// {
-	// isApplicable = true;
-	// System.out.println("Es el mas pequeño");
-	// System.out.println(isApplicable);
-	// }
-	// else
-	// {
-	// for (int i=disco; i<state.getList().size(); i++) {
-	// int soporteAux = state.getList().get(i);
-	// if(soporteAux == soporteOrigen){//-No haya discos más pequeños en el
-	// soporte origen
-	// isApplicable = false;
-	// System.out.println("No haya discos más pequeños en el soporte origen");
-	// System.out.println(isApplicable);
-	// }
-	// else
-	// {
-	// if(soporteAux==soporteDestino){//-Que no haya discos más pequeños en el
-	// soporte destino
-	// isApplicable = false;
-	// System.out.println("Que no haya discos más pequeños en el soporte
-	// destino");
-	// System.out.println(isApplicable);
-	// }
-	// }
-	// }
-	// }
-	// }
-	//// System.out.println(isApplicable);
-	// return isApplicable;
-	// }
+	
 
 	protected boolean isApplicable(State state) {// mirar esto
 
@@ -266,20 +220,18 @@ public class Operator {
 	 *         .
 	 */
 	protected State effect(State state) {
-		System.out.println("Antes del clone");
+		System.out.println("\nAntes del clone");
 		System.out.println(state.toString(numSoportes));
 
 		State newState = state.clone();
 
-		System.out.println("Despues del clone");
+		System.out.println("\nDespues del clone");
 		System.out.println(newState.toString(numSoportes));
 
 		newState.getList().set(disco, soporteDestino);
-		System.out.println("Despues del movimiento nuevo");
+		System.out.println("\nDespues del movimiento nuevo");
 		System.out.println(newState.toString(numSoportes));
 
-		System.out.println("Despues del movimiento viejo");
-		System.out.println(state.toString(numSoportes));
 
 		return newState;
 	}

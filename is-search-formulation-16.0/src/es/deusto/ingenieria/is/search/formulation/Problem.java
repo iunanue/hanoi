@@ -72,7 +72,9 @@ public class Problem {
 		System.out.println(getFinalStates().get(0).toString(numSoportes));
 		addOperators();
 		
-		solve(DepthFSwithLog.getInstance());
+		
+		
+//		solve(DepthFSwithLog.getInstance());
 //		System.out.println(getFinalStates().get(0).toString(numSoportes));
 //		solve(new BestFS(new AttacksEvaluationFunction()));
 //		runTest();
