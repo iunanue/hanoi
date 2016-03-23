@@ -1,7 +1,8 @@
 import java.util.Scanner;
 
-import es.deusto.ingenieria.is.search.algorithms.blind.DepthFS;
-import es.deusto.ingenieria.is.search.formulation.Problem;
+import es.deusto.ingenieria.is.search.algorithms.blind.BreadthFSwithLog;
+import es.deusto.ingenieria.is.search.algorithms.blind.DepthFSwithLog;
+import formulation.HanoiProblem;
 
 public class Main {
 
@@ -10,7 +11,7 @@ public class Main {
 	private static int soporteInicial;
 	private static int soporteFinal;
 
-	private static Problem problem;
+	private static HanoiProblem hanoiProblem;
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -69,19 +70,16 @@ public class Main {
 		System.out.println("\tNúmero de SOPORTES: " + numSoportes);
 		System.out.println("\tNúmero de DISCOS: " + numDiscos);
 		System.out.println("\tSoporte INICIAL: " + soporteInicial);
-		System.out.println("\tSoporte FINAL: " + soporteFinal);
+		System.out.println("\tSoporte FINAL: " + soporteFinal + "\n");
 
 		soporteInicial = soporteInicial - 1;
 		soporteFinal = soporteFinal - 1;
 	}
 
 	public static void initProblem() {
-		problem = new Problem(numSoportes, numDiscos, soporteInicial, soporteFinal);
-//		problem.addInitialState(problem.gatherInitialPercepts());
-//		
-//		problem.solve(DepthFS.getInstance());
-//		
-//		problem.solve(new BestFS(new AttacksEvaluationFunction()));
+		hanoiProblem = new HanoiProblem(numSoportes, numDiscos, soporteInicial, soporteFinal);
+		hanoiProblem.solve(DepthFSwithLog.getInstance());
+		hanoiProblem.solve(BreadthFSwithLog.getInstance());
 
 	}
 
