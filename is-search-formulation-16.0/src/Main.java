@@ -78,7 +78,7 @@ public class Main {
 
 	public static void initProblem() {
 		hanoiProblem = new HanoiProblem(numSoportes, numDiscos, soporteInicial, soporteFinal);
-		hanoiProblem.solve(DepthFSwithLog.getInstance());
+//		hanoiProblem.solve(DepthFSwithLog.getInstance());
 		hanoiProblem.solve(BreadthFSwithLog.getInstance());
 
 	}
