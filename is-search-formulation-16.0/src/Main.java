@@ -2,7 +2,10 @@ import java.util.Scanner;
 
 import es.deusto.ingenieria.is.search.algorithms.blind.BreadthFSwithLog;
 import es.deusto.ingenieria.is.search.algorithms.blind.DepthFSwithLog;
+import es.deusto.ingenieria.is.search.algorithms.heuristic.BestFS;
 import formulation.HanoiProblem;
+import heuristics.HanoiEvaluationFunction;
+import heuristics.HillClimbingWithLog;
 
 public class Main {
 
@@ -79,8 +82,9 @@ public class Main {
 	public static void initProblem() {
 		hanoiProblem = new HanoiProblem(numSoportes, numDiscos, soporteInicial, soporteFinal);
 //		hanoiProblem.solve(DepthFSwithLog.getInstance());
-		hanoiProblem.solve(BreadthFSwithLog.getInstance());
-
+//		hanoiProblem.solve(BreadthFSwithLog.getInstance());
+		hanoiProblem.solve(new BestFS(new HanoiEvaluationFunction()));
+//		hanoiProblem.solve(new HillClimbingWithLog(new HanoiEvaluationFunction()));
 	}
 
 }

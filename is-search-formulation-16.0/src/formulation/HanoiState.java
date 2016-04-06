@@ -68,5 +68,19 @@ public class HanoiState extends es.deusto.ingenieria.is.search.formulation.State
 		string = string + "\n";
 		return string;
 	}
+	public int getTotalHanoi() {
+		int desempeño;
+		int numDiscos = list.size();
+		int numDiscosSoporteFinal = 0;
+		for(int i=0;i<list.size();i++){
+			if(list.get(i)==numSoportes){
+				numDiscosSoporteFinal= numDiscosSoporteFinal+1;
+			}
+		}
+		desempeño = numDiscosSoporteFinal/numDiscos;
+		
+		
+		return desempeño;
+	}
 
 }
