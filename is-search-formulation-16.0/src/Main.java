@@ -83,8 +83,8 @@ public class Main {
 		hanoiProblem = new HanoiProblem(numSoportes, numDiscos, soporteInicial, soporteFinal);
 //		hanoiProblem.solve(DepthFSwithLog.getInstance());
 //		hanoiProblem.solve(BreadthFSwithLog.getInstance());
-		hanoiProblem.solve(new BestFS(new HanoiEvaluationFunction()));
-//		hanoiProblem.solve(new HillClimbingWithLog(new HanoiEvaluationFunction()));
+//		hanoiProblem.solve(new BestFS(new HanoiEvaluationFunction()));
+		hanoiProblem.solve(new HillClimbingWithLog(new HanoiEvaluationFunction()));
 	}
 
 }

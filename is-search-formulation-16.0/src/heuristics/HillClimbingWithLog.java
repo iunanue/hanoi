@@ -14,13 +14,15 @@ import java.util.List;
 
 public class HillClimbingWithLog
 extends BestFS {
-    public HillClimbingWithLog(EvaluationFunction function) {
+    private List<Node> successorNodes;
+
+	public HillClimbingWithLog(EvaluationFunction function) {
         super(function);
     }
 
     @Override
     public Node search(Problem problem, State initialState) {
-    	//A list to keep the nodes generated during the search process.
+		//A list to keep the nodes generated during the search process.
 		List<Node> frontier = new ArrayList<Node>();
 		//List of states generated during the search process. This is used to check for repeated states.
 		List<State> generatedStates = new ArrayList<State>();
@@ -32,7 +34,7 @@ extends BestFS {
 		List<Node> successorNodes = null;
 		//Flag that signals whether a solution has been found.
 		boolean solutionFound = false;
-
+		boolean solucionLocal = false;
 		//Defines and initializes the search log.
 		SearchLog searchLog = this.createSearchLog();
 		
@@ -40,28 +42,32 @@ extends BestFS {
 		frontier.add(new Node(initialState));
 
 		//Loop until the problem is solved or the generated nodes list is empty
-		while (!solutionFound && !frontier.isEmpty()) {			
+		while ((!solutionFound && !frontier.isEmpty())|| solucionLocal==false ) {			
 			//write the content of the generated nodes list in the search log.
 			this.writeInSeachLog(searchLog, frontier);			
 			//remove the first node from the generated nodes list.
+			System.out.println("solucion local" + solucionLocal);
 			firstNode = frontier.remove(0);
 			
 			//If the first node contains a problem's final state
 			if (problem.isFinalState(firstNode.getState())) {
 				//change the flag to signal that the problem is solved
 				solutionFound = true;
+				continue;
 			//If the first node doesn't contain a problem's final state				
 			} else {
+				System.out.println("llega aquiii");
 				//Expand the first node.
 				successorNodes = this.expand(firstNode, problem, generatedStates, expandedStates);
 				//If new successor nodes resulted from the expansion
-				if (successorNodes != null && !successorNodes.isEmpty()) {
-					//Add the successor nodes to the generated nodes list.
+				if ((successorNodes != null) && (!successorNodes.isEmpty())) {
+					
 					frontier.addAll(successorNodes);
-					//Sort the generated nodes list according to the evaluation function value
-					// of the nodes. This comparison criteria is defined within the compareTo()
-					// method of Node.
 					Collections.sort(frontier);
+					if(firstNode.getH()<=frontier.get(0).getH()){
+						
+						solucionLocal = true;
+					}
 				}
 			}
 		}
@@ -78,6 +84,6 @@ extends BestFS {
 			//return null
 			return null;
 		}
-    }
+	}
 }
 
