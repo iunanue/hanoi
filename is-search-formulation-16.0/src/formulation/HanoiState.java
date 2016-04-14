@@ -82,5 +82,30 @@ public class HanoiState extends es.deusto.ingenieria.is.search.formulation.State
 		
 		return desempeño;
 	}
+	//Heurística Propuesta 2: Discos que no están en el soporte final
+	public int getPropuesta2() {
+		int desempeño;
+		int numDiscosNoSoporteFinal = 0;
+		for(int i=0;i<list.size();i++){
+			if(list.get(i)!=numSoportes){
+				numDiscosNoSoporteFinal= numDiscosNoSoporteFinal+1;
+			}
+		}
+		desempeño = numDiscosNoSoporteFinal;
+		return desempeño;
+	}
+	
+	//Heurística Propuesta 1: Discos que están en el soporte inicial
+	public int getPropuesta1() {
+		int desempeño;
+		int numDiscosSoporteInicial = 0;
+		for(int i=0;i<list.size();i++){
+			if(list.get(i) == 1){
+				numDiscosSoporteInicial = numDiscosSoporteInicial+1;
+			}
+		}
+		desempeño = numDiscosSoporteInicial;
+		return desempeño;
+	}
 
 }

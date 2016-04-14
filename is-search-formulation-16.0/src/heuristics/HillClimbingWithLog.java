@@ -46,7 +46,6 @@ extends BestFS {
 			//write the content of the generated nodes list in the search log.
 			this.writeInSeachLog(searchLog, frontier);			
 			//remove the first node from the generated nodes list.
-			System.out.println("solucion local" + solucionLocal);
 			firstNode = frontier.remove(0);
 			
 			//If the first node contains a problem's final state

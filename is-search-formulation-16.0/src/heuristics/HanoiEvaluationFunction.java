@@ -16,7 +16,8 @@ public class HanoiEvaluationFunction extends EvaluationFunction {
 	public double calculateH(Node node) {
 		// TODO Auto-generated method stub
 		HanoiState hanoiState = (HanoiState) node.getState();		
-		return hanoiState.getTotalHanoi();
+		return hanoiState.getPropuesta1();
+//		return hanoiState.getPropuesta2();
 	}
 
 }
