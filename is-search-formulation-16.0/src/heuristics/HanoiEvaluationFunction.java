@@ -18,6 +18,7 @@ public class HanoiEvaluationFunction extends EvaluationFunction {
 		HanoiState hanoiState = (HanoiState) node.getState();		
 		return hanoiState.getPropuesta1();
 //		return hanoiState.getPropuesta2();
+//		return hanoiState.getPropuesta3();
 	}
 
 }

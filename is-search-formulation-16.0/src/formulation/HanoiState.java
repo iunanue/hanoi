@@ -82,18 +82,6 @@ public class HanoiState extends es.deusto.ingenieria.is.search.formulation.State
 		
 		return desempeño;
 	}
-	//Heurística Propuesta 2: Discos que no están en el soporte final
-	public int getPropuesta2() {
-		int desempeño;
-		int numDiscosNoSoporteFinal = 0;
-		for(int i=0;i<list.size();i++){
-			if(list.get(i)!=numSoportes){
-				numDiscosNoSoporteFinal= numDiscosNoSoporteFinal+1;
-			}
-		}
-		desempeño = numDiscosNoSoporteFinal;
-		return desempeño;
-	}
 	
 	//Heurística Propuesta 1: Discos que están en el soporte inicial
 	public int getPropuesta1() {
@@ -107,5 +95,47 @@ public class HanoiState extends es.deusto.ingenieria.is.search.formulation.State
 		desempeño = numDiscosSoporteInicial;
 		return desempeño;
 	}
+	
+	//Heurística Propuesta 2: Discos que no están en el soporte final
+	public int getPropuesta2() {
+		int desempeño;
+		int numDiscosNoSoporteFinal = 0;
+		for(int i=0;i<list.size();i++){
+			if(list.get(i)!=numSoportes){
+				numDiscosNoSoporteFinal= numDiscosNoSoporteFinal+1;
+			}
+		}
+		desempeño = numDiscosNoSoporteFinal;
+		return desempeño;
+	}
+	
+	//Heurística Propuesta 3: Discos que están en el soporte final + discos que están en su posición correcta del soporte final
+		public int getPropuesta3() {
+			int desempeño;
+			int total = 0;
+			int numDiscosFinal = 0;
+			for(int i=0;i<list.size();i++){
+				if(list.get(i)==numSoportes){
+					numDiscosFinal= numDiscosFinal+1;
+				}
+			}
+			if(list.get(0)== numSoportes){
+				total = total + 5;
+				if(list.size()>1){
+					for(int i=1;i<list.size();i++){
+						if(list.get(i) == numSoportes){
+							total = total + 5;
+						}
+						else{
+							break;
+						}
+					}
+					
+				}
+			}
+			
+			desempeño = -(numDiscosFinal + total);
+			return desempeño;
+		}	
 
 }
