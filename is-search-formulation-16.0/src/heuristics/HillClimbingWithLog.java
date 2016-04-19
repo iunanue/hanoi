@@ -55,7 +55,6 @@ extends BestFS {
 				continue;
 			//If the first node doesn't contain a problem's final state				
 			} else {
-				System.out.println("llega aquiii");
 				//Expand the first node.
 				successorNodes = this.expand(firstNode, problem, generatedStates, expandedStates);
 				//If new successor nodes resulted from the expansion

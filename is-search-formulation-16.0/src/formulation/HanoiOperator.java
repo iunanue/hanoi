@@ -31,19 +31,19 @@ public class HanoiOperator  extends es.deusto.ingenieria.is.search.formulation.O
 		boolean isApplicable = true;
 
 		int soporteOrigen = hanoiState.getList().get(disco);
-		System.out.println(
-				"\nDisco: " + disco + " Soporte destino: " + soporteDestino + " Soporte origen: " + soporteOrigen);
+//		System.out.println(
+//				"\nDisco: " + disco + " Soporte destino: " + soporteDestino + " Soporte origen: " + soporteOrigen);
 
 		if (soporteDestino == soporteOrigen) {// -El soporte destino no sea el
 												// mismo que el soporte origen
 			isApplicable = false;
-			System.out.println("El soporte destino no sea el mismo que el soporte origen");
-			System.out.println(isApplicable);
+//			System.out.println("El soporte destino no sea el mismo que el soporte origen");
+//			System.out.println(isApplicable);
 		} else {
 			if ((disco) == (hanoiState.getList().size() - 1)) {
 				isApplicable = true;
-				System.out.println("Es el mas pequeño");
-				System.out.println(isApplicable);
+//				System.out.println("Es el mas pequeño");
+//				System.out.println(isApplicable);
 			} else {
 				if((disco) == (hanoiState.getList().size()-1))
 					isApplicable = true;
@@ -52,14 +52,14 @@ public class HanoiOperator  extends es.deusto.ingenieria.is.search.formulation.O
 						int soporteAux = hanoiState.getList().get(i);
 							if(soporteAux == soporteOrigen){
 								isApplicable = false;
-								System.out.println("No haya discos más pequeños en el soporte origen");
-								System.out.println(isApplicable);
+//								System.out.println("No haya discos más pequeños en el soporte origen");
+//								System.out.println(isApplicable);
 							}
 							else{
 								if(soporteAux==soporteDestino){
 									isApplicable = false;
-									System.out.println("Que no haya discos más pequeños en el soporte destino");
-									System.out.println(isApplicable);
+//									System.out.println("Que no haya discos más pequeños en el soporte destino");
+//									System.out.println(isApplicable);
 								}			
 							}		
 					}

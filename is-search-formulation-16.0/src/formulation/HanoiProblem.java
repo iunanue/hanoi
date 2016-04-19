@@ -75,7 +75,7 @@ public class HanoiProblem extends es.deusto.ingenieria.is.search.formulation.Pro
 			for(int j=0;j<numSoportes;j++){
 				operator = new HanoiOperator(i,j,numSoportes);//i=numdisco j=soportedestino
 				addOperator(operator);
-				System.out.println(i+ " " + j);
+//				System.out.println(i+ " " + j);
 			}
 		}
 			

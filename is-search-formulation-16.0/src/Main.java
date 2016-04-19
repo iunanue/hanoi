@@ -69,11 +69,11 @@ public class Main {
 		sc.close();
 
 		// DATOS INTRODUCIDOS
-		System.out.println("Datos introducidos");
-		System.out.println("\tNúmero de SOPORTES: " + numSoportes);
-		System.out.println("\tNúmero de DISCOS: " + numDiscos);
-		System.out.println("\tSoporte INICIAL: " + soporteInicial);
-		System.out.println("\tSoporte FINAL: " + soporteFinal + "\n");
+//		System.out.println("Datos introducidos");
+//		System.out.println("\tNúmero de SOPORTES: " + numSoportes);
+//		System.out.println("\tNúmero de DISCOS: " + numDiscos);
+//		System.out.println("\tSoporte INICIAL: " + soporteInicial);
+//		System.out.println("\tSoporte FINAL: " + soporteFinal + "\n");
 
 		soporteInicial = soporteInicial - 1;
 		soporteFinal = soporteFinal - 1;
@@ -83,8 +83,8 @@ public class Main {
 		hanoiProblem = new HanoiProblem(numSoportes, numDiscos, soporteInicial, soporteFinal);
 //		hanoiProblem.solve(DepthFSwithLog.getInstance());
 //		hanoiProblem.solve(BreadthFSwithLog.getInstance());
-		hanoiProblem.solve(new BestFS(new HanoiEvaluationFunction()));
-//		hanoiProblem.solve(new HillClimbingWithLog(new HanoiEvaluationFunction()));
+//		hanoiProblem.solve(new BestFS(new HanoiEvaluationFunction()));
+		hanoiProblem.solve(new HillClimbingWithLog(new HanoiEvaluationFunction()));
 	}
 
 }
